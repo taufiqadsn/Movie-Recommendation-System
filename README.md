@@ -107,4 +107,19 @@ Pada tahap ini kita akan mengawali dengan mengurutkan film berdasarkan kolom _mo
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/9.png?raw=true)
 
-Judul film pada data terlihat lebih rapi dan terurut dibanding sebelumnya. 
+Judul film pada data terlihat lebih rapi dan terurut dibanding sebelumnya. Selanjutnya kita cek genre film yang unik.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/10.png?raw=true)
+
+Jika kita amati, pada gambar terdapat genre film dengan kategori '(no genres listed)'. Kemungkinan data pada indeks tersebut terjadi kesalahan saat input. Untuk mengatasi masalah ini kita perlu mengeksplorasi datanya lebih lanjut dan melakukan analisis. Mari kita analisa kategori '(no genres listed)' terdapat pada film apa saja. Berikut hasil setelah kita eksplorasi dengan perintah kode.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/11.png?raw=true)
+
+Ternyata cukup banyak jumlah film dengan kategori genre '(no genres listed)'. Selanjutnya kita akan analisa satu persatu film untuk mengetahui apakah ada kategori genre lain pada setiap film.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/12.png?raw=true)
+
+Gambar diatas merupakan salah satu contoh dari beberapa film yang berkategori '(no genres listed)'. Pada sample tersebut ternyata tidak ada kategori genre lain yang berarti ada kemungkinan kesalahan saat input. Ada berbagai cara untuk mengatasi permasalahan ini, namun pada kasus ini kita akan mengganti genre tersebut dengan unknown. Berikut hasil yang telah diterapkan dengan perintah kode.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/13.png?raw=true)
+
