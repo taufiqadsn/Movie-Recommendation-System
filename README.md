@@ -32,3 +32,79 @@ Data yang akan kita gunakan bersumber dari situs [Kaggle](https://www.kaggle.com
 * rating : yaitu penilaian pengguna terhadap film tersebut
 * timestamp : yaitu waktu dimana penilaian tersebut diberikan
 
+Untuk lebih memahami tentang data yang akan kita gunakan, kita akan melakukan beberapa tahapan diantaranya :
+* Univariate Exploratory Analysis Data
+
+Tahapan eksplorasi penting untuk memahami variabel-variabel pada data serta korelasi antar variabel. Pada kasus ini, kita akan mengeksplorasi variabel movies dan ratings.
+
+**Movies**
+
+Berikut gambaran dari data movies :
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/1.png?raw=true)
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/2.png?raw=true)
+
+Berdasarkan pada gambar diatas, kita mengetahui bahwa pada data movies terdapat dua data tipe kategorik dan satu data tipe numerik serta berisi jumlah total 9742 baris serta 3 kolom. Gambar selanjutnya menerangkan bahwa pada data tersebut tidak terdapat nilai yang hilang (missing value).
+
+**Ratings**
+
+Berikut gambaran dari data ratings :
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/3.png?raw=true)
+
+Pada data ratings seluruh tipe datanya merupakan tipe numerik yang memiliki jumlah total 100836 baris serta 4 kolom.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/4.png?raw=true)
+
+Dapat kita ketahui bahwa tidak terdapat missing value pada data ratings berdasarkan pada gambar diatas.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/5.png?raw=true)
+
+Gambar tersebut merupakan nilai tendensi sentral pada data ratings. Di setiap kolomnya tidak terdapat nilai 0 pada baris _min_ yang berarti memperkuat data bahwa tidak terdapat missing value.
+<br>
+Keterangan : 
+<br>
+       - count : yaitu jumlah data keseluruhan
+       <br>
+       - mean : yaitu nilai rata-rata pada kolom tertentu
+       <br>
+       - std : yaitu standar deviasi pada kolom tertentu
+       <br>
+       - min : yaitu nilai terkecil pada kolom tertentu
+       <br>
+       - 25% : yaitu kuartil bawah data pada kolom tertentu
+       <br>
+       - 50% : yaitu median atau nilai tengah data pada kolom tertentu
+       <br>
+       - 75% : yaitu kuartil bawah data pada kolom tertentu
+       <br>
+       - max : yaitu nilai terbesar pada kolom tertentu
+## Data Preparation
+Pada tahap ini kita akan melakukan beberapa persiapan data sebagai berikut :
+<br>
+* Menggabungkan Data Movies dan Ratings
+
+Berikut hasil setelah kedua data tersebut digabungkan menjadi satu.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/6.png?raw=true)
+
+Data tersebut kini telah menjadi satu dan mengalami perubahan struktur data yang kini berisi jumlah total 100836 baris serta 5 kolom. Pada proses penggabungan ini memungkinkan adanya missing value pada setiap kolom. Lalu, apakah data tersebut terdapat missing value atau tidak kita akan mengetahuinya pada gambar berikut.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/7.png?raw=true)
+
+Data tersebut tidak terdapat missing value setelah mengalami penggabungan data. Data ini berarti bersih dan siap dilanjutkan ke tahap berikutnya.
+<br>
+* Menghilangkan Noise 
+
+Untuk menghilangkan noise kita akan mengubah semua huruf menjadi huruf kecil pada kolom _title_ dan _genres_. Berikut hasil output setelah dijalankan dengan perintah kode.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/8.png?raw=true)
+
+* Menyamakan Genre Film
+
+Pada tahap ini kita akan mengawali dengan mengurutkan film berdasarkan kolom _movieId_. Berikut hasil output setelah kita jalankan dengan perintah kode.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/9.png?raw=true)
+
+Judul film pada data terlihat lebih rapi dan terurut dibanding sebelumnya. 
