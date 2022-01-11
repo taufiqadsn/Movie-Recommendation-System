@@ -1,6 +1,6 @@
 # Laporan Proyek Machine Learning - Taufiq Adjie Sanjaya
 ## Project Overview
-Filmku adalah suatu aplikasi pemutar film yang sudah ada sejak tahun 2010 hingga sekarang. Sejak awal perilisannya, aplikasi tersebut mampu meraih 1 juta penonton tiap tahunnya dan terus bertambah seiring waktu. Namun, dua tahun belakangan ini jumlah penonton tersebut mengalami penurunan yang cukup signifikan. Tentu hal ini akan berimbas buruk untuk kedepannya jika tidak ada cepat diatasi. Owner Filmku menyadari bahwa hal ini disebabkan karena pada saat pengguna menonton sebuah film, pengguna tersebut tidak dapat menemukan film lain yang kemungkinan ia sukai berdasarkan genre film yang ia tonton saat ini.
+Filmku adalah suatu aplikasi pemutar film yang sudah ada sejak tahun 2010 hingga sekarang. Sejak awal perilisannya, aplikasi tersebut mampu meraih 1 juta penonton tiap tahunnya dan terus bertambah seiring waktu. Namun, dua tahun belakangan ini jumlah penonton tersebut mengalami penurunan yang cukup signifikan. Tentu hal ini akan berimbas buruk untuk kedepannya jika tidak cepat diatasi. Owner Filmku menyadari bahwa hal ini disebabkan karena pada saat pengguna menonton sebuah film, pengguna tersebut tidak dapat menemukan film lain yang kemungkinan ia sukai berdasarkan genre film yang ia tonton saat ini.
 
 Lantas Owner Filmku pun berencana akan membuat suatu sistem rekomendasi berdasarkan kategori tertentu agar para pengguna dapat tertarik kembali untuk menggunakan aplikasi tersebut. Sistem rekomendasi ini diharapkan dapat memberikan manfaat untuk meningkatkan jumlah penonton, click rate, serta lamanya pengguna dalam menggunakan aplikasi.
 
@@ -45,7 +45,15 @@ Berikut gambaran dari data movies :
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/2.png?raw=true)
 
-Berdasarkan pada gambar diatas, kita mengetahui bahwa pada data movies terdapat dua data tipe kategorik dan satu data tipe numerik serta berisi jumlah total 9742 baris serta 3 kolom. Gambar selanjutnya menerangkan bahwa pada data tersebut tidak terdapat nilai yang hilang (missing value).
+Berdasarkan pada gambar diatas, kita mengetahui bahwa pada data movies terdapat dua data tipe kategorik dan satu data tipe numerik serta berisi jumlah total 9742 baris serta 3 kolom. Gambar selanjutnya menerangkan bahwa pada data tersebut tidak terdapat nilai yang hilang (missing value). Selanjutnya kita cek genre film yang unik.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/10.png?raw=true)
+
+Jika kita amati, pada gambar terdapat genre film dengan kategori '(no genres listed)'. Kemungkinan data pada indeks tersebut terjadi kesalahan saat input. Untuk mengatasi masalah ini kita perlu mengeksplorasi datanya lebih lanjut dan melakukan analisis. Mari kita analisa kategori '(no genres listed)' terdapat pada film apa saja. Berikut hasil setelah kita eksplorasi dengan perintah kode.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/11.png?raw=true)
+
+Ternyata cukup banyak jumlah film dengan kategori genre '(no genres listed)'. Cara mengatasi permasalahan ini akan kita bahas pada tahapan persiapan data.
 
 **Ratings**
 
@@ -60,8 +68,6 @@ Pada data ratings seluruh tipe datanya merupakan tipe numerik yang memiliki juml
 Dapat kita ketahui bahwa tidak terdapat missing value pada data ratings berdasarkan pada gambar diatas.
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/5.png?raw=true)
-
-Gambar tersebut merupakan nilai tendensi sentral pada data ratings. Di setiap kolomnya tidak terdapat nilai 0 pada baris _min_ yang berarti memperkuat data bahwa tidak terdapat missing value.
 <br>
 Keterangan : 
 <br>
@@ -80,9 +86,17 @@ Keterangan :
        - 75% : yaitu kuartil bawah data pada kolom tertentu
        <br>
        - max : yaitu nilai terbesar pada kolom tertentu
+
+Gambar tersebut merupakan nilai tendensi sentral pada data ratings. Di setiap kolomnya tidak terdapat nilai 0 pada baris _min_ yang berarti memperkuat data bahwa tidak terdapat missing value. Namun, kita juga perlu memastikan apakah ada nilai rating 0.5 yang diberikan oleh pengguna sebab jika tidak dipastikan kemungkinan data tersebut bisa saja merupakan anomali.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/38.png?raw=true)
+
+
 ## Data Preparation
 Pada tahap ini kita akan melakukan beberapa persiapan data sebagai berikut :
 <br>
+### Data Cleaning
+
 * Menggabungkan Data Movies dan Ratings
 
 Berikut hasil setelah kedua data tersebut digabungkan menjadi satu.
@@ -107,15 +121,7 @@ Pada tahap ini kita akan mengawali dengan mengurutkan film berdasarkan kolom _mo
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/9.png?raw=true)
 
-Judul film pada data terlihat lebih rapi dan terurut dibanding sebelumnya. Selanjutnya kita cek genre film yang unik.
-
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/10.png?raw=true)
-
-Jika kita amati, pada gambar terdapat genre film dengan kategori '(no genres listed)'. Kemungkinan data pada indeks tersebut terjadi kesalahan saat input. Untuk mengatasi masalah ini kita perlu mengeksplorasi datanya lebih lanjut dan melakukan analisis. Mari kita analisa kategori '(no genres listed)' terdapat pada film apa saja. Berikut hasil setelah kita eksplorasi dengan perintah kode.
-
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/11.png?raw=true)
-
-Ternyata cukup banyak jumlah film dengan kategori genre '(no genres listed)'. Selanjutnya kita akan analisa satu persatu film untuk mengetahui apakah ada kategori genre lain pada setiap film.
+Judul film pada data terlihat lebih rapi dan terurut dibanding sebelumnya. Pada tahapan pemahaman data kita mendapati bahwa ada kategori (no genres listed) pada kolom genre film. Kita akan analisa satu persatu film untuk mengetahui apakah ada kategori genre lain pada setiap film yang berkategori (no genres listed).
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/12.png?raw=true)
 
@@ -130,12 +136,14 @@ Pada tahapan ini kita akan menghapus data duplikat dan hanya menggunakan data un
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/14.png?raw=true)
 
 Dapat dilihat bahwa tidak ada film yang sama pada tabel.
+<br>
+### Data Transform
 
 * Mengkonversi Data Series Menjadi List
 
-Pada tahap ini kita akan mengkonversi data series menjadi list. Berikut perintah kode serta output nya.
+Pada tahap ini kita akan mengkonversi data series menjadi list. Berikut hasil output dari perintah kode yang kita jalankan.
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/15.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/39.png?raw=true)
 
 Tahap selanjutnya kita akan membuat dictionary untuk menentukan pasangan key value pada data yang telah kita siapkan sebelumnya. Berikut hasilnya.
 
@@ -157,9 +165,9 @@ Sebelum memasuki tahap pembagian dataset, kita akan mengacak datanya terlebih da
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/20.png?raw=true)
 
-Selanjutnya kita akan melakukan pembagian data kita menjadi data training dan data validasi.
+Selanjutnya kita akan melakukan pembagian data kita menjadi data training dan data validasi. Namun sebelumnya, kita perlu memetakan (mapping) data user dan film menjadi satu value terlebih dahulu. Lalu, buatlah rating dalam skala 0 sampai 1 agar mudah dalam melakukan proses training. Berikut hasil setelah kita jalankan dengan perintah kode.
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/19.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/40.png?raw=true)
 
 Kini data sudah siap untuk dimasukkan ke dalam proses pemodelan.
 
@@ -172,15 +180,15 @@ Pada tahap ini, kita akan membangun sistem rekomendasi sederhana berdasarkan gen
 
 **TF-IDF Vectorizer**
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/21.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/41.png?raw=true)
 
-Pada output dari kode yang telah kita jalankan dihasilkan seluruh fitur penting dari genre film. Berikutnya, kita akan melakukan fit dan transformasi ke dalam bentuk matriks.
+Hasil output dari kode yang telah kita jalankan pada gambar diatas dihasilkan seluruh fitur penting dari genre film. Berikutnya, kita akan melakukan fit dan transformasi ke dalam bentuk matriks.
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/22.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/42.png?raw=true)
 
 Hasil output tersebut menunjukkan matriks yang kita miliki berukuran (9724, 22). Nilai 9724 merupakan ukuran data dan 22 merupakan matriks genre film. Seharusnya jumlah metriks genre film adalah 20, karena pada genre film _'sci-fi'_ dan _'film-noir'_ terdapat tanda (-) sehingga dianggap terdapat dua nilai namun ini tidak jadi masalah karena sistem tetap menganggapnya sebagai satu kesatuan. Untuk menghasilkan vektor tf-idf dalam bentuk matriks, kita akan menggunakan fungsi todense().
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/23.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/43.png?raw=true)
 
 Selanjutnya, kita lihat matriks tf-idf untuk beberapa film dan genre film tersebut.
 
@@ -190,7 +198,7 @@ Pada hasil output matriks diatas menunjukkan bahwa film _shadow world (2016)_ me
 
 **Cosine Similarity**
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/25.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/44.png?raw=true)
 
 Kode diatas menghasilkan keluaran berupa matriks kesamaan dalam bentuk array. Selanjutnya, mari kita lihat matriks kesamaan setiap film dengan menampilkan judul film dalam 5 sampel kolom dan 10 sampel baris.
 
@@ -200,25 +208,19 @@ Berdasarkan tabel di atas terdapat beberapa nilai yang mengindikasikan kesamaan 
 
 **Mendapatkan Rekomendasi**
 
-Tahap ini merupakan tahap terakhir dimana kita akan membuat suatu fungsi untuk dalam membuat sistem rekomendasi. Berikut perintah kodenya.
+Tahap ini merupakan tahap terakhir dimana kita akan membuat suatu fungsi untuk dalam membuat sistem rekomendasi. Kita akan ambil satu sample film dan menemukan rekomendasi film berdasarkan kesamaan genrenya.
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/27.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/46.png?raw=true)
 
-Selanjutnya, kita akan ambil satu sample film dan menemukan rekomendasi film berdasarkan kesamaan genrenya.
-
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/28.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/47.png?raw=true)
 
 Pada gambar diatas kita ambil sample film _toy story (1995)_ yang memiliki lima kategori genre yaitu adventure, animation, children, comedy, dan fantasy. Lalu, sistem kita memberikan rekomendasi 10 film dengan kategori genre yang sama. Hal ini menandakan bahwa sistem rekomendasi yang kita buat sudah berhasil.
 
 * Collaborative Filtering
 
-Pada tahap ini, model menghitung skor kecocokan antara pengguna dan resto dengan teknik embedding. Pertama, kita melakukan proses embedding terhadap data user dan film. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan film. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan film. Skor kecocokan ditetapkan dalam skala (0,1) dengan fungsi aktivasi sigmoid.
+Pada tahap ini, model menghitung skor kecocokan antara pengguna dan film dengan teknik embedding. Pertama, kita melakukan proses embedding terhadap data user dan film. Selanjutnya, lakukan operasi perkalian dot product antara embedding user dan film. Selain itu, kita juga dapat menambahkan bias untuk setiap user dan film. Skor kecocokan ditetapkan dalam skala (0,1) dengan fungsi aktivasi sigmoid. Selanjutnya, lakukan proses compile terhadap model dan mulailah proses training. Berikut sebagian hasil dari training.
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/29.png?raw=true)
-
-Selanjutnya, lakukan proses compile terhadap model dan mulailah proses training.
-
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/30.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/45.png?raw=true)
 
 Untuk mendapatkan visualisasi tentang hasil training, kita akan membuat plot matriks evaluasi.
 
@@ -235,15 +237,17 @@ Tahap akhir ini kita akan menjelaskan hasil proyek berdasarkan matriks evaluasi 
 
 * Content Based Filtering
 
-Pada teknik ini, precision score akan digunakan sebagai metrics evaluation. Precision disini merupakan jumlah film rekomendasi yang relevan dengan kategori film yang dipilih. Berikut formula dari metriks evaluasi precision.
+Pada teknik ini, kita akan menghitung manual nilai presisi sebagai evaluasi. Presisi disini merupakan jumlah film rekomendasi yang relevan dengan kategori film yang dipilih. Berikut formula dari evaluasi presisi.
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/34.png?raw=true)
 
 Hasil rekomendasi sebagai berikut:
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/28.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/46.png?raw=true)
 
-Berdasarkan hasil rekomendasi di atas, dapat diketahui bahwa film _toy story (1995)_ merupakan film dengan genre adventure, animation, children, comedy, dan fantasy. Lalu sistem memberikan 10 rekomendasi film. Dari 10 film yang direkomendasikan, semuanya memiliki kesamaan genre secara keseluruhan dengan film _toy story (1995)_. Artinya, precision sistem kita sebesar 10/10 atau 100%.
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/47.png?raw=true)
+
+Berdasarkan hasil rekomendasi di atas, dapat diketahui bahwa film _toy story (1995)_ merupakan film dengan genre adventure, animation, children, comedy, dan fantasy. Lalu sistem memberikan 10 rekomendasi film. Dari 10 film yang direkomendasikan, semuanya memiliki kesamaan genre secara keseluruhan dengan film _toy story (1995)_. Artinya, nilai presisi sistem kita sebesar 10/10 atau 100%.
 
 * Collaborative Filtering
 
