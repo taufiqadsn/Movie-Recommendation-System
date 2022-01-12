@@ -159,15 +159,21 @@ Pada tahap ini, kita melakukan persiapan data untuk menyandikan (encode) fitur _
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/18.png?raw=true)
 
+* Normalisasi
+
+Selanjutnya, kita perlu memetakan (mapping) data user dan film menjadi satu value terlebih dahulu. Lalu, buatlah rating dalam skala 0 sampai 1 agar mudah dalam melakukan proses training. Berikut hasil setelah kita jalankan dengan perintah kode.
+
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/40.png?raw=true)
+
 * Membagi Data Menjadi Training dan Validasi
 
 Sebelum memasuki tahap pembagian dataset, kita akan mengacak datanya terlebih dahulu agar distribusinya menjadi random.
 
 ![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/20.png?raw=true)
 
-Selanjutnya kita akan melakukan pembagian data kita menjadi data training dan data validasi. Namun sebelumnya, kita perlu memetakan (mapping) data user dan film menjadi satu value terlebih dahulu. Lalu, buatlah rating dalam skala 0 sampai 1 agar mudah dalam melakukan proses training. Berikut hasil setelah kita jalankan dengan perintah kode.
+Selanjutnya kita akan melakukan pembagian data kita menjadi data training dan data validasi. Berikut hasil setelah kita jalankan dengan perintah kode.
 
-![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/40.png?raw=true)
+![](https://github.com/cumapemula/Movie-Recommendation-System/blob/main/Images/48.png?raw=true)
 
 Kini data sudah siap untuk dimasukkan ke dalam proses pemodelan.
 
